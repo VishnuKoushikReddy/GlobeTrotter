@@ -1,0 +1,83 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+
+  <!-- USER INFO -->
+  <div class="card p-4 mb-4">
+    <div class="row align-items-center">
+
+      <!-- Image -->
+      <div class="profile-img">
+  <img
+    src="<%= user.profileImage %>"
+    alt="Profile"
+    style="width:100%;height:100%;border-radius:50%;object-fit:cover;"
+  >
+</div>
+
+
+      <!-- Details -->
+      <div class="col-md-8">
+        <h5><%= user.firstName %> <%= user.lastName %></h5>
+        <p class="mb-1"><strong>Email:</strong> <%= user.email %></p>
+        <p class="mb-1">
+          <strong>Location:</strong>
+          <%= user.city || '—' %>, <%= user.country || '—' %>
+        </p>
+        <p class="mb-0">
+          <strong>About:</strong>
+          <%= user.additionalInfo || '—' %>
+        </p>
+      </div>
+
+      <!-- Edit -->
+      <div class="col-md-2 text-end">
+        <a href="/profile/edit" class="btn btn-outline-primary">Edit</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PREPLANNED TRIPS -->
+  <h5 class="mb-3">Preplanned Trips</h5>
+  <div class="row mb-4">
+    <% if (preplannedTrips.length === 0) { %>
+      <p>No upcoming trips.</p>
+    <% } %>
+
+    <% preplannedTrips.forEach(trip => { %>
+      <div class="col-md-4">
+        <div class="card trip-card p-3 text-center mb-3">
+          <h6><%= trip.title %></h6>
+          <p class="text-muted"><%= trip.place %></p>
+          <a href="/trip/<%= trip._id %>" class="btn btn-sm btn-outline-primary">
+            View
+          </a>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+  <!-- PREVIOUS TRIPS -->
+  <h5 class="mb-3">Previous Trips</h5>
+  <div class="row">
+    <% if (previousTrips.length === 0) { %>
+      <p>No completed trips.</p>
+    <% } %>
+
+    <% previousTrips.forEach(trip => { %>
+      <div class="col-md-4">
+        <div class="card trip-card p-3 text-center mb-3">
+          <h6><%= trip.title %></h6>
+          <p class="text-muted"><%= trip.place %></p>
+          <a href="/trip/<%= trip._id %>" class="btn btn-sm btn-outline-primary">
+            View
+          </a>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+</div>
+
+<%- include('../partials/footer') %>

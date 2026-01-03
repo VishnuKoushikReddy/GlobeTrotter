@@ -1,0 +1,23 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+  <h3><%= trip.title %></h3>
+  <p><strong>Place:</strong> <%= trip.place %></p>
+  <p><strong>Dates:</strong>
+    <%= trip.startDate.toDateString() %> →
+    <%= trip.endDate.toDateString() %>
+  </p>
+  <p><%= trip.description %></p>
+
+  <a href="/trip/<%= trip._id %>/edit" class="btn btn-primary">Edit</a>
+
+  <form action="/trip/<%= trip._id %>/delete" method="POST" class="d-inline">
+    <button class="btn btn-danger" onclick="return confirm('Delete this trip?')">
+      Delete
+    </button>
+  </form>
+
+  <a href="/dashboard" class="btn btn-secondary ms-2">Back</a>
+</div>
+
+<%- include('../partials/footer') %>

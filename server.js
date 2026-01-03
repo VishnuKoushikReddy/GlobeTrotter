@@ -17,6 +17,7 @@ app.set("views", path.join(__dirname, "src/views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static('public'));
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -26,6 +27,13 @@ app.use(session({
 
 app.use("/", require("./src/routes/auth.routes"));
 app.use('/', require('./src/routes/dashboard.routes'));
+app.use('/', require('./src/routes/trip.routes'));
+app.use('/', require('./src/routes/profile.routes'));
+app.use('/auth', require('./src/routes/auth.routes'));
+
+app.get("/", (req, res) => {
+  res.redirect("/login");
+});
 
 app.listen(PORT, () => {
   console.log("Server is Listening >>>");

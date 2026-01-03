@@ -1,0 +1,57 @@
+.banner {
+  background: #f5f7fa;
+  padding: 40px;
+  border-radius: 12px;
+}
+
+.region-card {
+  height: 100px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  background: #fff;
+}
+
+.trip-card {
+  border-radius: 12px;
+}
+
+.banner {
+  position: relative;
+  height: 260px;
+  border-radius: 14px;
+  background-image: url("/images/banner.png");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  padding: 30px;
+  color: #fff;
+}
+
+.banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 14px;
+}
+
+/* Text layer */
+.banner-content {
+  position: relative;
+  z-index: 1;
+}
+
+.banner h2 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.banner p {
+  font-size: 16px;
+  max-width: 500px;
+}

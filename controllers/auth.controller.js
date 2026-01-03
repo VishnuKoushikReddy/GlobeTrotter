@@ -1,10 +1,10 @@
-const User = require('../models/User');
-const bcrypt = require('bcrypt');
+const User = require("../models/User");
+const bcrypt = require("bcrypt");
 
-// Login Code 
+// Login Code
 
 exports.getLogin = (req, res) => {
-  res.render('auth/login', { error: null });
+  res.render("auth/login", { error: null });
 };
 
 exports.postLogin = async (req, res) => {
@@ -12,23 +12,22 @@ exports.postLogin = async (req, res) => {
 
   const user = await User.findOne({ email });
   if (!user) {
-    return res.render('auth/login', { error: 'Invalid credentials' });
+    return res.render("auth/login", { error: "Invalid credentials" });
   }
 
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
-    return res.render('auth/login', { error: 'Invalid credentials' });
+    return res.render("auth/login", { error: "Invalid credentials" });
   }
 
   req.session.userId = user._id;
-  res.redirect('/dashboard');
+  res.redirect("/dashboard");
 };
-
 
 // Register Page Code
 
 exports.getRegister = (req, res) => {
-  res.render('auth/register', { error: null });
+  res.render("auth/register", { error: null });
 };
 
 exports.postRegister = async (req, res) => {
@@ -40,22 +39,23 @@ exports.postRegister = async (req, res) => {
     city,
     country,
     additionalInfo,
-    password
+    password,
   } = req.body;
 
   try {
-    // Check existing user
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.render('auth/register', {
-        error: 'Email already registered'
+      return res.render("auth/register", {
+        error: "Email already registered",
       });
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Save user
+    const profileImage = req.file
+      ? `/uploads/profile/${req.file.filename}`
+      : "/images/default-user.png";
+
     const user = new User({
       firstName,
       lastName,
@@ -64,18 +64,17 @@ exports.postRegister = async (req, res) => {
       city,
       country,
       additionalInfo,
-      password: hashedPassword
+      password: hashedPassword,
+      profileImage,
     });
 
     await user.save();
 
-    // Redirect to login
-    res.redirect('/login');
-
+    res.redirect("/login");
   } catch (err) {
     console.error(err);
-    res.render('auth/register', {
-      error: 'Registration failed'
+    res.render("auth/register", {
+      error: "Registration failed",
     });
   }
 };
@@ -84,6 +83,6 @@ exports.postRegister = async (req, res) => {
 
 exports.logout = (req, res) => {
   req.session.destroy(() => {
-    res.redirect('/auth/login');
+    res.redirect("/login");
   });
 };

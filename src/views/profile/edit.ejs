@@ -1,0 +1,82 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+
+  <h4>Edit Profile</h4>
+
+  <% if (error) { %>
+    <div class="alert alert-danger"><%= error %></div>
+  <% } %>
+
+  <form
+    action="/profile/edit"
+    method="POST"
+    enctype="multipart/form-data"
+    class="card p-4"
+  >
+
+    <!-- Profile Image -->
+    <div class="mb-3 text-center">
+      <img
+        src="<%= user.profileImage %>"
+        alt="Profile"
+        style="width:90px;height:90px;border-radius:50%;object-fit:cover;"
+      >
+      <br><br>
+      <input
+        type="file"
+        name="profileImage"
+        class="form-control"
+        accept="image/*"
+      >
+      <small class="text-muted">Upload JPG or PNG</small>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label>First Name</label>
+        <input type="text" name="firstName" class="form-control"
+               value="<%= user.firstName %>" required>
+      </div>
+      <div class="col">
+        <label>Last Name</label>
+        <input type="text" name="lastName" class="form-control"
+               value="<%= user.lastName %>" required>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label>Phone</label>
+      <input type="text" name="phone" class="form-control"
+             value="<%= user.phone || '' %>">
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label>City</label>
+        <input type="text" name="city" class="form-control"
+               value="<%= user.city || '' %>">
+      </div>
+      <div class="col">
+        <label>Country</label>
+        <input type="text" name="country" class="form-control"
+               value="<%= user.country || '' %>">
+      </div>
+    </div>
+    <div class="mb-3">
+  <label>Trip Status</label>
+</div>
+
+    <div class="mb-3">
+      <label>About</label>
+      <textarea name="additionalInfo" class="form-control" rows="3"><%= user.additionalInfo || '' %></textarea>
+    </div>
+
+    <button class="btn btn-success mb-3">Save Changes</button>
+    <a href="/profile" class="btn btn-secondary">Cancel</a>
+
+  </form>
+
+</div>
+
+<%- include('../partials/footer') %>

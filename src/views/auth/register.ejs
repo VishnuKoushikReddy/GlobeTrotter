@@ -4,6 +4,20 @@
   <div class="login-card">
 
     <h3>Register</h3>
+    <form
+  action="/auth/register"
+  method="POST"
+  enctype="multipart/form-data"
+>
+  <div class="mb-3 text-center">
+    <label class="form-label">Profile Image</label>
+    <input
+      type="file"
+      name="profileImage"
+      class="form-control"
+      accept="image/*"
+    >
+  </div>
 
     <form action="/register" method="POST">
 

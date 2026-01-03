@@ -1,42 +1,150 @@
 <%- include('../partials/header') %>
+<ul class="navbar-nav ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="/dashboard">Dashboard</a>
+  </li>
 
-<div class="container mt-4">
+  <li class="nav-item">
+    <a class="nav-link" href="/profile">My Profile</a>
+  </li>
 
-  <h2>Welcome, <%= user.firstName %> 👋</h2>
+  <li class="nav-item">
+    <a class="nav-link text-danger" href="/auth/logout">Logout</a>
+  </li>
+</ul>
 
-  <div class="mt-3">
-    <a href="/trip/create" class="btn btn-primary">
-      Plan New Trip
-    </a>
+<div class="container-fluid px-4">
 
-    <a href="/auth/logout" class="btn btn-outline-danger ms-2">
-      Logout
+  <!-- Banner -->
+  <div class="banner my-4">
+  <div class="banner-content">
+    <h2>Plan your next journey</h2>
+    <p>Discover destinations, build itineraries, and travel smarter.</p>
+  </div>
+</div>
+
+
+  <div class="card mb-4 p-3">
+  <div class="d-flex align-items-center justify-content-between">
+    <div>
+      <h6 class="mb-1">Welcome, <%= user.firstName %></h6>
+      <small class="text-muted">Manage your profile and trips</small>
+    </div>
+    <a href="/profile" class="btn btn-outline-primary">
+      View Profile
     </a>
   </div>
+</div>
 
-  <hr>
 
-  <h4>Your Trips</h4>
+  <!-- SEARCH / FILTER / SORT FORM -->
+  <form method="GET" action="/dashboard">
+  <div class="row mb-4">
 
-  <% if (trips.length === 0) { %>
-    <p>No trips yet. Start planning your first journey!</p>
-  <% } else { %>
-    <div class="row">
-      <% trips.forEach(trip => { %>
-        <div class="col-md-4">
-          <div class="card mb-3">
-            <div class="card-body">
-              <h5><%= trip.title %></h5>
-              <p><%= trip.startDate %> → <%= trip.endDate %></p>
-              <a href="/trip/<%= trip._id %>" class="btn btn-sm btn-secondary">
-                View
-              </a>
-            </div>
+    <!-- Search -->
+    <div class="col-md-5">
+      <input
+        type="text"
+        name="search"
+        class="form-control"
+        placeholder="Search trips or places..."
+        value="<%= search || '' %>"
+      >
+    </div>
+
+    <!-- Status Filter -->
+    <div class="col-md-2">
+      <select name="status" class="form-select">
+        <option value="">All Status</option>
+        <option value="upcoming" <%= status === 'upcoming' ? 'selected' : '' %>>
+          Upcoming
+        </option>
+        <option value="ongoing" <%= status === 'ongoing' ? 'selected' : '' %>>
+          Ongoing
+        </option>
+        <option value="completed" <%= status === 'completed' ? 'selected' : '' %>>
+          Completed
+        </option>
+      </select>
+    </div>
+
+    <!-- Sort -->
+    <div class="col-md-3">
+      <select name="sort" class="form-select">
+        <option value="">Sort by</option>
+        <option value="startDate" <%= sort === 'startDate' ? 'selected' : '' %>>
+          Start Date
+        </option>
+        <option value="createdDate" <%= sort === 'createdDate' ? 'selected' : '' %>>
+          Created Date
+        </option>
+      </select>
+    </div>
+
+    <!-- Apply -->
+    <div class="col-md-2">
+      <button class="btn btn-primary w-100">Apply</button>
+    </div>
+
+  </div>
+</form>
+
+  <!-- Top Regional Selections -->
+  <h4 class="mb-3">Top Regional Selections</h4>
+  <div class="row mb-5">
+    <% ['Asia','Europe','America','Africa','Oceania'].forEach(region => { %>
+      <div class="col-md-2">
+        <div class="region-card text-center">
+          <p class="mb-0"><%= region %></p>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+  <!-- Previous Trips Header -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>Previous Trips</h4>
+    <a href="/trip/create" class="btn btn-primary">+ Plan a Trip</a>
+  </div>
+
+  <!-- Trips List -->
+  <div class="row">
+
+    <% if (trips.length === 0) { %>
+      <p>No trips found. Try changing search or filters.</p>
+    <% } %>
+
+    <% trips.forEach(trip => { %>
+      <div class="col-md-4">
+        <div class="card trip-card mb-4">
+          <div class="card-body">
+            <h5 class="card-title"><%= trip.title %></h5>
+
+            <p class="mb-1">
+              <strong>Place:</strong> <%= trip.place %>
+            </p>
+
+            <span class="badge bg-secondary text-capitalize">
+             <%= trip.status %>
+            </span>
+
+            <p class="mb-2 text-muted">
+              <%= trip.startDate.toDateString() %> →
+              <%= trip.endDate.toDateString() %>
+            </p>
+
+            <a
+              href="/trip/<%= trip._id %>"
+              class="btn btn-sm btn-outline-primary"
+            >
+              View Trip
+            </a>
           </div>
         </div>
-      <% }) %>
-    </div>
-  <% } %>
+      </div>
+    <% }) %>
+
+  </div>
 
 </div>
 

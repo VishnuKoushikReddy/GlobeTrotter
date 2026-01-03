@@ -11,7 +11,7 @@
   width: 350px;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
@@ -37,4 +37,49 @@ textarea {
   padding: 10px;
   margin-top: 10px;
   resize: none;
+}
+
+.navbar-nav,
+.navbar-nav li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+  padding-right: 20px;
+  padding-top: 10px;
+}
+
+.nav-item {
+  display: inline-block;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-link:hover {
+  background-color: #f2f2f2;
+  color: #000;
+}
+
+.nav-link.text-danger {
+  color: #d9534f;
+}
+
+.nav-link.text-danger:hover {
+  background-color: #f8d7da;
+  color: #b52b27;
 }
