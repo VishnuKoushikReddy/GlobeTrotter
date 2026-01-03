@@ -79,3 +79,11 @@ exports.postRegister = async (req, res) => {
     });
   }
 };
+
+// Logout Route
+
+exports.logout = (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/auth/login');
+  });
+};

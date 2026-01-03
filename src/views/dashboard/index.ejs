@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+
+  <h2>Welcome, <%= user.firstName %> 👋</h2>
+
+  <div class="mt-3">
+    <a href="/trip/create" class="btn btn-primary">
+      Plan New Trip
+    </a>
+
+    <a href="/auth/logout" class="btn btn-outline-danger ms-2">
+      Logout
+    </a>
+  </div>
+
+  <hr>
+
+  <h4>Your Trips</h4>
+
+  <% if (trips.length === 0) { %>
+    <p>No trips yet. Start planning your first journey!</p>
+  <% } else { %>
+    <div class="row">
+      <% trips.forEach(trip => { %>
+        <div class="col-md-4">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5><%= trip.title %></h5>
+              <p><%= trip.startDate %> → <%= trip.endDate %></p>
+              <a href="/trip/<%= trip._id %>" class="btn btn-sm btn-secondary">
+                View
+              </a>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+
+</div>
+
+<%- include('../partials/footer') %>

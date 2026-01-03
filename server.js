@@ -25,6 +25,7 @@ app.use(session({
 }));
 
 app.use("/", require("./src/routes/auth.routes"));
+app.use('/', require('./src/routes/dashboard.routes'));
 
 app.listen(PORT, () => {
   console.log("Server is Listening >>>");
