@@ -1,0 +1,19 @@
+<%- include('../partials/header.ejs') %>
+<div class="login-container">
+  <div class="login-card">
+    <div class="profile-pic">
+      <img src="/images/login.png" alt="Logo">
+    </div>
+
+    <form action="/auth/login" method="POST">
+      <input type="text" name="email" placeholder="Username" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+
+    <% if (error) { %>
+      <p class="error"><%= error %></p>
+    <% } %>
+  </div>
+</div>
+<%- include('../partials/footer.ejs') %>
