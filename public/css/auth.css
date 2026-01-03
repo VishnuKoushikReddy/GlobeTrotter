@@ -1,3 +1,5 @@
+/* Login Page */
+
 .login-container {
   height: 100vh;
   display: flex;
@@ -26,4 +28,13 @@
   color: white;
   border: none;
   border-radius: 5px;
+}
+
+/* Register Page */
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  resize: none;
 }

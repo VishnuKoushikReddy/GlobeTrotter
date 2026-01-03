@@ -24,7 +24,7 @@ app.use(session({
   saveUninitialized: false
 }));
 
-app.use("/", require("./routes/auth.routes"));
+app.use("/", require("./src/routes/auth.routes"));
 
 app.listen(PORT, () => {
   console.log("Server is Listening >>>");
